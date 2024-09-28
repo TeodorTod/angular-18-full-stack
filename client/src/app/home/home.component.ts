@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../services/products.service';
-import { Products } from '../../types';
+import { Product, Products } from '../../types';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
+import { ProductComponent } from "../components/product/product.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ProductComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  productsData: any;
+  products: Product[] = []
   constructor(private productsService: ProductsService) { }
 
   ngOnInit() {
@@ -23,24 +24,24 @@ export class HomeComponent implements OnInit {
       })
       .subscribe((products: Products) => {
         console.log(products);
-        this.productsData = products
+        this.products = products.items
       });
   }
-} 
+}
 
-  // productsData$!: Observable<Products>;
+// productsData$!: Observable<Products>;
 
-  // constructor(private productService: ProductsService) {
+// constructor(private productService: ProductsService) {
 
-  // }
+// }
 
-  // ngOnInit(): void {
-  //   this.productsData$ = this.productService.getProducts('http://localhost:3000/clothes',
-  //     {
-  //       page: 0,
-  //       perPage: 5,
-  //     }
-  //   )
-  // }
+// ngOnInit(): void {
+//   this.productsData$ = this.productService.getProducts('http://localhost:3000/clothes',
+//     {
+//       page: 0,
+//       perPage: 5,
+//     }
+//   )
+// }
 
 
