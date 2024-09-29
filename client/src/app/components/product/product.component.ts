@@ -1,13 +1,22 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product } from '../../../types';
+import { RatingModule } from 'primeng/rating';
+import { FormsModule } from '@angular/forms';
+import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [],
+  imports: [RatingModule, FormsModule],
   templateUrl: './product.component.html',
-  styleUrl: './product.component.scss'
+  styleUrls: ['./product.component.scss'] // Ensure this is "styleUrls" (not "styleUrl")
 })
-export class ProductComponent {
+export class ProductComponent implements OnInit {
   @Input() product!: Product;
+  @Output() productOutput: EventEmitter<Product> = new EventEmitter<Product>();
+
+
+  ngOnInit(): void {
+    this.productOutput.emit(this.product)
+  }
 }
